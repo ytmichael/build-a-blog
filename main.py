@@ -26,6 +26,7 @@ def newpost():
         body = request.form['body']
         title_error = ''
         body_error = ''
+        #Validation and if valid input, it stores into database and displays individual blog!
         if len(title) == 0 and len(body) == 0:
             title_error = 'Invalid Title'
             body_error = 'Blog body can not be empty'
@@ -37,15 +38,12 @@ def newpost():
             body_error = 'Blog body can not be empty'
             return render_template('new_post.html',body_error=body_error)
         else:
-            if not title_error and not body_error:
-                new_blog = Blog(title,body)
-                db.session.add(new_blog)
-                db.session.commit()
-                return render_template('ind_blog.html',title="Build a Blog!", 
-                blog=new_blog)
-            else: 
-                return render_template('new_post.html')
-            
+            new_blog = Blog(title,body)
+            db.session.add(new_blog)
+            db.session.commit()
+            return render_template('ind_blog.html',title="Build a Blog!", 
+            blog=new_blog)
+                    
     return render_template('new_post.html')
   
 
